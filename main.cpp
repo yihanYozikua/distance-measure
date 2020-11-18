@@ -19,17 +19,10 @@ using namespace cv;
 
 int main(  ){
 
-  Tools test;
-  test.video_capture();
-
-  // Mat img = imread( "ttt.png" );
-  // if( img.empty() ){
-  //   cout << "Not a falid image file." << endl;
-  // }
-  // namedWindow( "Simple Demo", WINDOW_AUTOSIZE );
-  // imshow( "Simple Demo", img );
+  Tools test; // init the object
   
-  waitKey(0);
+  test.video_capture();
+  
   destroyAllWindows();
 
   return 0;
