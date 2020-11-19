@@ -9,19 +9,38 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    @IBOutlet weak var textField: NSTextField!
+    @IBOutlet weak var textLabel: NSTextField!
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+            // Do any additional setup after loading the view.
         }
+
+        override var representedObject: Any? {
+            didSet {
+                // Update the view, if already loaded.
+            }
+        }
+    
+    
+    @IBAction func pressBtn(_ sender: Any) {
+        var text = textField.stringValue
+        if text.isEmpty{
+            text = "World!"
+        }
+        let greeting = "Hello \(text)!"
+        textLabel.stringValue = greeting
     }
+    
+    @IBAction func btRun(_ sender: Any) {
 
+        let oc = OCClass()
+        let y = oc.getYear()
+        textLabel.stringValue = "The Year is \(y)"
 
+    }
 }
 

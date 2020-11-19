@@ -11,11 +11,12 @@
 
 #include <opencv2/opencv.hpp>
 using namespace cv;
+using namespace std;
 
 class Tools{
 
   public:
-    void video_capture();
+    void video_capture(); // to open camera and start the video stream
 
 };
 
