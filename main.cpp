@@ -20,8 +20,9 @@ using namespace cv;
 int main(  ){
 
   Tools test; // init the object
-  
   test.video_capture();
+
+  
   
   destroyAllWindows();
 
