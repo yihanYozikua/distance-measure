@@ -10,17 +10,21 @@ import Cocoa
 
 class mainPage: NSViewController {
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
+    let fullSize = NSScreen.main?.frame.size
+    @IBOutlet weak var labelText: NSTextField!
 
-            // Do any additional setup after loading the view.
-        }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-        override var representedObject: Any? {
-            didSet {
-                // Update the view, if already loaded.
-            }
+        // Do any additional setup after loading the view.
+    }
+
+    override var representedObject: Any? {
+        didSet {
+            // Update the view, if already loaded.
         }
+    }
     
     @IBAction func start(_ sender: Any) {
         

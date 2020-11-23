@@ -10,18 +10,19 @@ import Foundation
 import Cocoa
 
 class basic_init: NSViewController{
+    let fullSize = NSScreen.main?.frame.size
     
-        override func viewDidLoad(){
-            super.viewDidLoad()
-        
-            // Do any additional setup after loading the view
-        }
+    override func viewDidLoad(){
+        super.viewDidLoad()
+            
+        // Do any additional setup after loading the view
+    }
     
-        override var representedObject: Any? {
-            didSet{
-                // Update the view, if already loaded.
-            }
+    override var representedObject: Any? {
+        didSet{
+            // Update the view, if already loaded.
         }
+    }
     
     // add element controllers below
     

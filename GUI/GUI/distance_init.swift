@@ -11,17 +11,19 @@ import Cocoa
 
 class distance_init: NSViewController{
     
-        override func viewDidLoad(){
-            super.viewDidLoad()
-        
-            // Do any additional setup after loading the view
-        }
+    let fullSize = NSScreen.main?.frame.size
     
-        override var representedObject: Any? {
-            didSet{
-                // Update the view, if already loaded.
-            }
+    override func viewDidLoad(){
+        super.viewDidLoad()
+            
+        // Do any additional setup after loading the view
+    }
+    
+    override var representedObject: Any? {
+        didSet{
+            // Update the view, if already loaded.
         }
+    }
     
     // add element controllers below
     
