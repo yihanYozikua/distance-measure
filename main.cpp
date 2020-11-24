@@ -34,18 +34,19 @@ int main( int argc, char *argv[] ){
   if( cap.isOpened() ){
     cout << "Face Detection Start..." << endl;
 
-    // INIT DISTANCE
+    // INIT
     while( true ){
+      // get frames from camera
       cap >> frame;
       if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
-
       imshow( "Init", frame );
 
+      // init
       char pressKey = ( char )waitKey( 1 );
       if( pressKey == 13 ){
         cout << "START INIT" << endl;
         tool.DistanceInit( frame );
-        if( pressKey == 13 ){
+        if( pressKey == 13 ){ // confirm by pressing the "SPACE" key
           cout << "width: " << tool.obj_width << endl;
           cout << "Height: "<< tool.obj_height << endl;
           cout << "END INIT" << endl;
@@ -59,14 +60,12 @@ int main( int argc, char *argv[] ){
 
     // ANALYZE
     while( true ){
-      // get img from camera
+      // get frames from camera
       cap >> frame;
       if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
 
       // start the face detection function
       tool.FaceDetection( frame );
-      
-      // show processed img with detected faces
       imshow( "Eyes Detection", frame );
 
       // if press ESC, q, or Q, the process will end
