@@ -34,6 +34,9 @@ int main( int argc, char *argv[] ){
   if( cap.isOpened() ){
     cout << "Face Detection Start..." << endl;
 
+    // INIT DISTANCE
+
+    // ANALYZE
     while( true ){
       // get img from camera
       cap >> frame;
