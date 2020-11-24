@@ -35,6 +35,27 @@ int main( int argc, char *argv[] ){
     cout << "Face Detection Start..." << endl;
 
     // INIT DISTANCE
+    while( true ){
+      cap >> frame;
+      if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
+
+      imshow( "Init", frame );
+
+      char pressKey = ( char )waitKey( 1 );
+      if( pressKey == 13 ){
+        cout << "START INIT" << endl;
+        tool.DistanceInit( frame );
+        if( pressKey == 13 ){
+          cout << "width: " << tool.obj_width << endl;
+          cout << "Height: "<< tool.obj_height << endl;
+          cout << "END INIT" << endl;
+          break;
+        }
+      }
+    }
+
+    destroyWindow( "Init" );
+
 
     // ANALYZE
     while( true ){
