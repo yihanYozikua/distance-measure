@@ -65,7 +65,7 @@ int main( int argc, char *argv[] ){
       if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
 
       // start the face detection function
-      tool.FaceDetection( frame );
+      tool.Detection( frame );
       imshow( "Eyes Detection", frame );
 
       // if press ESC, q, or Q, the process will end

@@ -21,7 +21,7 @@ class Tools{
     void ERROR_LOG( char const *msg ); // to print error message
     void DistanceInit( Mat frame );
     bool CompareWithInit( Rect coordinate );
-    void FaceDetection( Mat frame );
+    void Detection( Mat frame );
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
