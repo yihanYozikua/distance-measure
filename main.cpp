@@ -34,6 +34,12 @@ int main( int argc, char *argv[] ){
   if( !tool.face_cascade.load(tool.face_cascade_name) ){ tool.ERROR_LOG( "ERROR loading face cascade" ); }
   if( !tool.eyes_cascade.load(tool.eyes_cascade_name) ){ tool.ERROR_LOG( "ERROR loading eyes cascade" ); }
 
+  // Key in the user name
+  string user_name;
+  cout << "User Name: ";
+  cin >> user_name;
+  cout << "Hi " << user_name << endl;
+
   // After the camera is open
   if( cap.isOpened() ){
     cout << "Face Detection Start..." << endl;
@@ -85,7 +91,7 @@ int main( int argc, char *argv[] ){
 
   // Record user's datas into JSON files
   struct user_data person1;
-  person1 = { 0, "yozi", 60.7, 60.0, false };
+  person1 = { 0, user_name, 60.7, 60.0, false };
   tool.recordData( person1 );
 
   // String to char*
@@ -95,7 +101,7 @@ int main( int argc, char *argv[] ){
   char dir[count+1];
   strcpy( dir, dir_str.c_str() );
 
-  // Pass char to mk_dir() function to find if the specific exists
+  // Pass char to mk_dir() function to find if the specific dir exists
   cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
 
   destroyAllWindows();
