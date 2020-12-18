@@ -26,6 +26,8 @@ int main( int argc, char *argv[] ){
   VideoCapture cap = VideoCapture(0);
   Mat frame, img;
 
+  tool.time_capture();
+
   // load cascade classifiers
   if( !tool.face_cascade.load(tool.face_cascade_name) ){ tool.ERROR_LOG( "ERROR loading face cascade" ); }
   if( !tool.eyes_cascade.load(tool.eyes_cascade_name) ){ tool.ERROR_LOG( "ERROR loading eyes cascade" ); }
