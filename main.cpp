@@ -13,13 +13,13 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
-#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "tools.h"
 
 using namespace std;
 using namespace cv;
+
 
 int main( int argc, char *argv[] ){
 
@@ -86,11 +86,22 @@ int main( int argc, char *argv[] ){
   }
   else{ tool.ERROR_LOG( "ERROR open camera" ); }
 
+
   // Record user's datas into JSON files
   struct user_data person1;
   person1 = { 0, "yozi", 60.7, 60.0, false };
   tool.recordData( person1 );
 
+  // String to char*
+  string dir_str = "./datas/";
+  dir_str = dir_str.append( person1.name ) + "/";
+  int count = dir_str.length();
+  char dir[count+1];
+  strcpy( dir, dir_str.c_str() );
+
+  cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
+
   destroyAllWindows();
   return 0;
 }
+
