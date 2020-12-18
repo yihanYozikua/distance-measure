@@ -29,10 +29,6 @@ int main( int argc, char *argv[] ){
   // Camera init
   VideoCapture cap = VideoCapture(0);
   Mat frame, img;
-  string current_time;
-
-  // Time stamp
-  current_time = tool.time_capture();
 
   // Load cascade classifiers
   if( !tool.face_cascade.load(tool.face_cascade_name) ){ tool.ERROR_LOG( "ERROR loading face cascade" ); }
@@ -99,6 +95,7 @@ int main( int argc, char *argv[] ){
   char dir[count+1];
   strcpy( dir, dir_str.c_str() );
 
+  // Pass char to mk_dir() function to find if the specific exists
   cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
 
   destroyAllWindows();
