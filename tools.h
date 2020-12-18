@@ -14,6 +14,15 @@
 using namespace cv;
 using namespace std;
 
+struct user_data{
+  int userid;
+  string name;
+  float init_distance;
+  float measure_distance;
+  bool analysis_result;
+  string capture_time;
+};
+
 class Tools{
 
   public:
@@ -22,7 +31,8 @@ class Tools{
     void DistanceInit( Mat frame );
     bool CompareWithInit( Rect coordinate );
     void Detection( Mat frame );
-    void time_capture();
+    string time_capture();
+    void recordData( user_data person );
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
