@@ -13,6 +13,9 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "tools.h"
 
 using namespace std;
@@ -66,7 +69,7 @@ int main( int argc, char *argv[] ){
     destroyWindow( "Init" );
 
 
-    // ANALYZE
+    // ANALYZE in real-time
     while( true ){
       // Get frames from camera
       cap >> frame;
@@ -83,11 +86,11 @@ int main( int argc, char *argv[] ){
   }
   else{ tool.ERROR_LOG( "ERROR open camera" ); }
 
+  // Record user's datas into JSON files
   struct user_data person1;
-  person1 = { 0, "yozi", 60.7, 60.0, false, "Fri Dec 18 11:15:13 2020" };
+  person1 = { 0, "yozi", 60.7, 60.0, false };
   tool.recordData( person1 );
 
   destroyAllWindows();
-
   return 0;
 }

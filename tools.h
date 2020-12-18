@@ -20,7 +20,6 @@ struct user_data{
   float init_distance;
   float measure_distance;
   bool analysis_result;
-  string capture_time;
 };
 
 class Tools{
