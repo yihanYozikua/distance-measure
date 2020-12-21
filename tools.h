@@ -15,7 +15,7 @@ using namespace cv;
 using namespace std;
 
 struct user_data{
-  int userid;
+  int userid; //the count of the user
   string name;
   float init_distance;
   float measure_distance;
@@ -34,6 +34,7 @@ class Tools{
     string time_capture();
     void recordData( user_data person );
     bool mk_dir( char *dir );
+    int count_dir();
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
