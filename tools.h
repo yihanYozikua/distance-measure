@@ -34,6 +34,7 @@ class Tools{
     string time_capture();
     void recordData( user_data person );
     bool mk_dir( char *dir );
+    String executeCommand( const String cmd, int& out_exitStatus );
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";

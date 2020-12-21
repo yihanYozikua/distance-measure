@@ -106,6 +106,10 @@ int main( int argc, char *argv[] ){
   // Pass char to mk_dir() function to find if the specific dir exists
   cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
 
+  // Count directories
+  int exitStatus = 0;
+  auto result = tool.executeCommand( "cd datas\nls | wc -l", exitStatus );
+
   destroyAllWindows();
   return 0;
 }
