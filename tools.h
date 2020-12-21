@@ -34,7 +34,6 @@ class Tools{
     string time_capture();
     void recordData( user_data person );
     bool mk_dir( char *dir );
-    int count_dir();
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";

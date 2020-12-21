@@ -9,17 +9,19 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <fstream>
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <dirent.h>
 #include "tools.h"
 
 using namespace std;
 using namespace cv;
-
 
 int main( int argc, char *argv[] ){
 
