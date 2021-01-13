@@ -94,6 +94,7 @@ int main( int argc, char *argv[] ){
   // Record user's datas into JSON files
   struct user_data person1;
   person1 = { 0, user_name, 60.7, 60.0, false };
+  // person1 = { 0, user_name,  init_distance, measure_distance, analysis_result};
   tool.recordData( person1 );
 
   // String to char*
@@ -107,8 +108,8 @@ int main( int argc, char *argv[] ){
   cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
 
   // Count directories
-  int exitStatus = 0;
-  auto result = tool.executeCommand( "cd datas\nls | wc -l", exitStatus );
+  // int exitStatus = 0;
+  // auto result = tool.executeCommand( "ls | wc -l", exitStatus );
 
   destroyAllWindows();
   return 0;

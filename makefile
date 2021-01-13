@@ -11,7 +11,7 @@ LIBS = $(OPENCV)
 # 	g++ -std=c++11 $(LIBS) -c main.cpp 
 
 main:
-	g++ -std=c++11 $(LIBS) main.cpp tools.cpp -o main
+	g++ -std=c++11 $(LIBS) main.cpp tools.cpp dataProcessing.cpp -o main
 
 clean:
 	rm -f *.o main
