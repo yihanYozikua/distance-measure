@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  OpenCV-test
+//  Distance-Measure
 //
 //  Created by 蕭伊涵 on 2020/11/16.
 //  Copyright © 2020 YIHAN HSIAO. All rights reserved.
@@ -8,103 +8,110 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <string>
+#include <fstream>
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include "tools.h"
 
 using namespace std;
 using namespace cv;
 
-int main(  ){
+int main( int argc, char *argv[] ){
 
-  //============= INITIALIZE VIDEO CAPTURE =================
-  Mat frame;
-  VideoCapture cap; 
-  
-  int deviceID = 0; // 0: open default camera
-  int apiID = CAP_ANY; // 0: autodetect default API
+  // Create a new object
+  Tools tool;
 
-  // open selected camera using selected API
-  cap.open( deviceID, apiID );
+  // Camera init
+  VideoCapture cap = VideoCapture(0);
+  Mat frame, img;
 
-  // check if succeed
-  if( !cap.isOpened() ){
-    cerr << "ERROR! Unable to open camera\n" ;
-  }
+  // Load cascade classifiers
+  if( !tool.face_cascade.load(tool.face_cascade_name) ){ tool.ERROR_LOG( "ERROR loading face cascade" ); }
+  if( !tool.eyes_cascade.load(tool.eyes_cascade_name) ){ tool.ERROR_LOG( "ERROR loading eyes cascade" ); }
 
-  //============= GRAB AND WRITE LOOP =================
-  cout << "Start grabbing" << endl
-       << "Press any key to terminate;" << endl;
+  // Key in the user name
+  string user_name;
+  cout << "User Name: ";
+  cin >> user_name;
+  cout << "Hi " << user_name << endl;
 
-  while( 1 ){
-    // wait for a new frame frame from camera and store it into 'frame'
-    cap.read( frame );
-    // check if succeed
-    if( frame.empty() ){
-      cerr << "ERROR! blank frame grabbed\n";
-      break;
+  // After the camera is open
+  if( cap.isOpened() ){
+    cout << "Face Detection Start..." << endl;
+
+    // INIT
+    while( true ){
+      // Get frames from camera
+      cap >> frame;
+      if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
+      imshow( "Init", frame );
+
+      // Init
+      char pressKey = ( char )waitKey( 1 );
+      if( pressKey == 13 ){
+        cout << "START INIT" << endl;
+        tool.DistanceInit( frame );
+
+        // Confirm by pressing the "ENTER" key
+        if( pressKey == 13 ){
+          cout << "width: " << tool.obj_width << endl;
+          cout << "Height: "<< tool.obj_height << endl;
+          cout << "END INIT" << endl;
+          break;
+        }
+
+      }
     }
 
-    // show live and wait for a key with timeout long enough to show images
-    imshow( "Live", frame );
-    if( waitKey(0) ){
-      break;
+    destroyWindow( "Init" );
+
+
+    // ANALYZE in real-time
+    while( true ){
+      // Get frames from camera
+      cap >> frame;
+      if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
+
+      // Start the face detection function
+      tool.Detection( frame );
+      imshow( "Eyes Detection", frame );
+
+      // If press ESC, q, or Q, the process will end
+      char ch = ( char )waitKey( 10 );
+      if( ch == 27 || ch =='q' || ch == 'Q' ){ break; }
     }
   }
+  else{ tool.ERROR_LOG( "ERROR open camera" ); }
 
-  // Mat img = imread( "ttt.png" );
-  // if( img.empty() ){
-  //   cout << "Not a falid image file." << endl;
-  // }
-  // namedWindow( "Simple Demo", WINDOW_AUTOSIZE );
-  // imshow( "Simple Demo", img );
-  
-  waitKey(0);
+
+  // Record user's datas into JSON files
+  struct user_data person1;
+  person1 = { 0, user_name, 60.7, 60.0, false };
+  // person1 = { 0, user_name,  init_distance, measure_distance, analysis_result};
+  tool.recordData( person1 );
+
+  // String to char*
+  string dir_str = "./datas/";
+  dir_str = dir_str.append( person1.name ) + "/";
+  int count = dir_str.length();
+  char dir[count+1];
+  strcpy( dir, dir_str.c_str() );
+
+  // Pass char to mk_dir() function to find if the specific dir exists
+  cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
+
+  // Count directories
+  // int exitStatus = 0;
+  // auto result = tool.executeCommand( "ls | wc -l", exitStatus );
+
   destroyAllWindows();
-
   return 0;
-}
-
-// Open camera
-void openCamera(){
-  
-  Mat frame;
-
-  //============= INITIALIZE VIDEO CAPTURE =================
-  VideoCapture cap; 
-  
-  int deviceID = 0; // 0: open default camera
-  int apiID = CAP_ANY; // 0: autodetect default API
-
-  // open selected camera using selected API
-  cap.open( deviceID, apiID );
-
-  // check if succeed
-  if( !cap.isOpened() ){
-    cerr << "ERROR! Unable to open camera\n" ;
-    // return -1;
-  }
-
-  //============= GRAB AND WRITE LOOP =================
-  cout << "Start grabbing" << endl
-       << "Press any key to terminate;" << endl;
-
-  while( 1 ){
-    // wait for a new frame frame from camera and store it into 'frame'
-    cap.read( frame );
-    // check if succeed
-    if( frame.empty() ){
-      cerr << "ERROR! blank frame grabbed\n";
-      break;
-    }
-
-    // show live and wait for a key with timeout long enough to show images
-    imshow( "Live", frame );
-    if( waitKey(5) >= 0 ){
-      break;
-    }
-  }
-
 }
 
