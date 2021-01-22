@@ -1,12 +1,10 @@
 /.vscode/
-
-
 /datas/
-main
-tools.cpp
-GUI-design.xd
 /icon/
-/testCpp-inSwift/
-thought.md
 /Source/
+/testCpp-inSwift/
+GUI-design.xd
+main
 record-main.cpp
+thought.md
+tools.cpp
