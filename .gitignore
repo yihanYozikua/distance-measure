@@ -1,5 +1,7 @@
 /.vscode/
-/Execute/
+
+
+/datas/
 main
 tools.cpp
 GUI-design.xd
@@ -8,4 +10,3 @@ GUI-design.xd
 thought.md
 /Source/
 record-main.cpp
-/datas/
