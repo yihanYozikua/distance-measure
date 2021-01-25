@@ -3,7 +3,7 @@
 //  Distance-Measure
 //
 //  Created by 蕭伊涵 on 2020/11/16.
-//  Copyright © 2020 YIHAN HSIAO. All rights reserved.
+//  Copyright © 2020 - 2021 YIHAN HSIAO. All rights reserved.
 //
 
 #include <iostream>
@@ -19,6 +19,11 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include "tools.h"
+
+// include Python
+#define PY_SSIZE_T_CLEAN
+#include <cpy/Python.h>
+
 
 using namespace std;
 using namespace cv;
@@ -41,6 +46,12 @@ int main( int argc, char *argv[] ){
   cout << "User Name: ";
   cin >> user_name;
   cout << "Hi " << user_name << endl;
+
+
+  // Python Test
+  system("python3 ./python/py-db.py");
+  // Python Test END
+
 
   // After the camera is open
   if( cap.isOpened() ){
