@@ -17,7 +17,7 @@ using namespace std;
 class dataProcessing{
 
   public:
-    
+
 
 };
 

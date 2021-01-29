@@ -14,3 +14,4 @@ firebase_admin.initialize_app(cred)
 
 # init firestore
 db = firestore.client()
+
