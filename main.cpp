@@ -11,7 +11,6 @@
 #include <string>
 #include <fstream>
 
-
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
@@ -78,16 +77,17 @@ int main( int argc, char *argv[] ){
           cout << "END INIT" << endl;
           break;
         }
-
       }
     }
-
     destroyWindow( "Init" );
 
     // start timeing
     tool.start = clock();
     // ANALYZE in real-time
     while( true ){
+      // keep monitoring the usage duration
+      tool.end = clock();
+      tool.duration = tool.timeElapsed( tool.start, tool.end );
       // Get frames from camera
       cap >> frame;
       if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }

@@ -236,8 +236,7 @@ String executeCommand( const String cmd, int& out_exitStatus ){
 // Detect Screen Usage Time
 double Tools::timeElapsed( clock_t start, clock_t end ){
   double duration;
-  duration = (double)(end - start) / CLOCKS_PER_SEC;
-  duration = duration/2;
+  duration = (double)(end - start) / CLOCKS_PER_SEC / 2.5;
   cout << "Screen Usage: " << duration << " secs" << endl;
   return duration;
 }
