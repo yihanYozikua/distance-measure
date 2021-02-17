@@ -13,6 +13,7 @@
 #include <experimental/filesystem>
 #include <sstream>
 #include <ctime>
+#include <time.h>
 
 #include <nlohmann/json.hpp>
 #include <opencv2/opencv.hpp>
@@ -230,4 +231,13 @@ String executeCommand( const String cmd, int& out_exitStatus ){
     out_exitStatus = WEXITSTATUS(rc);
   }
   return result;
+}
+
+// Detect Screen Usage Time
+double Tools::timeElapsed( clock_t start, clock_t end ){
+  double duration;
+  duration = (double)(end - start) / CLOCKS_PER_SEC;
+  duration = duration/2;
+  cout << "Screen Usage: " << duration << " secs" << endl;
+  return duration;
 }

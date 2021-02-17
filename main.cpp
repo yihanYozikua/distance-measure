@@ -11,6 +11,7 @@
 #include <string>
 #include <fstream>
 
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/videoio.hpp>
@@ -49,7 +50,7 @@ int main( int argc, char *argv[] ){
 
 
   // Python Test
-  system("python3 ./python/py-db.py");
+  // system("python3 ./python/py-db.py");
   // Python Test END
 
 
@@ -83,7 +84,8 @@ int main( int argc, char *argv[] ){
 
     destroyWindow( "Init" );
 
-
+    // start timeing
+    tool.start = clock();
     // ANALYZE in real-time
     while( true ){
       // Get frames from camera
@@ -94,9 +96,18 @@ int main( int argc, char *argv[] ){
       tool.Detection( frame );
       imshow( "Eyes Detection", frame );
 
-      // If press ESC, q, or Q, the process will end
+      // If press ESC, q, or Q
+      // the system will calculate the elapsed time
+      // and the process will end
       char ch = ( char )waitKey( 10 );
-      if( ch == 27 || ch =='q' || ch == 'Q' ){ break; }
+      if( ch == 27 || ch =='q' || ch == 'Q' ){
+        // calculate time
+        tool.end = clock();
+        tool.duration = tool.timeElapsed( tool.start, tool.end );
+        tool.duration = 0;
+        // end timing
+        break; 
+      }
     }
   }
   else{ tool.ERROR_LOG( "ERROR open camera" ); }

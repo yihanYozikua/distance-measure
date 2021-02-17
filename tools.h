@@ -30,11 +30,12 @@ class Tools{
     void ERROR_LOG( char const *msg ); // to print error message
     void DistanceInit( Mat frame );
     bool CompareWithInit( Rect coordinate );
-    void Detection( Mat frame );
+    void Detection( Mat frame ); // 
     string time_capture();
     void recordData( user_data person );
     bool mk_dir( char *dir );
     String executeCommand( const String cmd, int& out_exitStatus );
+    double timeElapsed( clock_t start, clock_t end );
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
@@ -43,6 +44,8 @@ class Tools{
     CascadeClassifier eyes_cascade;
 
     int obj_width = 0, obj_height = 0;
+    clock_t start, end;
+    double duration;
 };
 
 #endif /* TOOLS_h */
