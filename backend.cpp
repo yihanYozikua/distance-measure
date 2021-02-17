@@ -28,7 +28,6 @@ using json = nlohmann::json;
 using namespace cv;
 namespace fs = std::experimental::filesystem;
 
-// BKN
 // init the user's distance
 void Backend::DistanceInit( Mat frame ){
   // declare vector for faces and eyes
@@ -54,7 +53,6 @@ void Backend::DistanceInit( Mat frame ){
   }
 }
 
-// BKN
 // compare thr analysis result to init distance
 bool Backend::CompareWithInit( Rect coordinate ){
   if( ( coordinate.width > obj_width + 10 ) && ( coordinate.height > obj_height + 10 ) ){
@@ -65,7 +63,6 @@ bool Backend::CompareWithInit( Rect coordinate ){
   }
 }
 
-// BKN
 // Detect if the user gets too close to the screen
 void Backend::Detection( Mat frame ){
   // declare vector for faces and eyes
@@ -92,7 +89,6 @@ void Backend::Detection( Mat frame ){
 }
 
 
-// BKN
 // Detect Screen Usage Time
 double Backend::timeElapsed( clock_t start, clock_t end ){
   double duration;
@@ -102,7 +98,6 @@ double Backend::timeElapsed( clock_t start, clock_t end ){
 }
 
 
-// BKN
 // When the duration time up, give choices for user to choose next-step action
 void Backend::duration_choice(){
   char duration_choice;
