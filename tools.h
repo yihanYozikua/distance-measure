@@ -21,6 +21,7 @@ struct user_data{
   float measure_distance;
   bool analysis_result;
   string timeStamp;
+  double user_init_duration;
 };
 
 class Tools{
@@ -36,6 +37,7 @@ class Tools{
     bool mk_dir( char *dir );
     String executeCommand( const String cmd, int& out_exitStatus );
     double timeElapsed( clock_t start, clock_t end );
+    void duration_choice();
 
     vector<Rect> faces, eyes;
     String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
@@ -45,7 +47,8 @@ class Tools{
 
     int obj_width = 0, obj_height = 0;
     clock_t start, end;
-    double duration;
+    double init_duration = 15; // system default standard screen usage duration
+    double duration; // duration to be calculated
 };
 
 #endif /* TOOLS_h */

@@ -240,3 +240,26 @@ double Tools::timeElapsed( clock_t start, clock_t end ){
   cout << "Screen Usage: " << duration << " secs" << endl;
   return duration;
 }
+
+void Tools::duration_choice(){
+  char duration_choice;
+  cout << "Press 'R' to Remind me later" << endl
+       << "or Press 'B' to have a break" << endl;
+
+  cin >> duration_choice;
+  // while( (duration_choice != 'R') || (duration_choice != 'B') ){
+  //   cout << "Please press 'R' or 'B'." << endl;
+  //   cin >> duration_choice;
+  // }
+
+  if(duration_choice == 'R'){
+    cout << "How long would you like to have a break?" << endl
+         << "This system takes 'minutes' for unit, please be awared when you key in the number. " << endl;
+    int break_time = 0;
+    cin >> break_time;
+    cout << "You will take " << break_time << " mins break" << endl;
+  }
+  else if(duration_choice == 'B'){ 
+    /* make the PC get into "sleep" status */ 
+  }
+}

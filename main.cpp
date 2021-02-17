@@ -24,11 +24,11 @@
 #define PY_SSIZE_T_CLEAN
 #include <cpy/Python.h>
 
-
 using namespace std;
 using namespace cv;
 
-int main( int argc, char *argv[] ){
+int main(int argc, char *argv[])
+{
 
   // Create a new object
   Tools tool;
@@ -38,8 +38,14 @@ int main( int argc, char *argv[] ){
   Mat frame, img;
 
   // Load cascade classifiers
-  if( !tool.face_cascade.load(tool.face_cascade_name) ){ tool.ERROR_LOG( "ERROR loading face cascade" ); }
-  if( !tool.eyes_cascade.load(tool.eyes_cascade_name) ){ tool.ERROR_LOG( "ERROR loading eyes cascade" ); }
+  if (!tool.face_cascade.load(tool.face_cascade_name))
+  {
+    tool.ERROR_LOG("ERROR loading face cascade");
+  }
+  if (!tool.eyes_cascade.load(tool.eyes_cascade_name))
+  {
+    tool.ERROR_LOG("ERROR loading eyes cascade");
+  }
 
   // Key in the user name
   string user_name;
@@ -47,87 +53,105 @@ int main( int argc, char *argv[] ){
   cin >> user_name;
   cout << "Hi " << user_name << endl;
 
-
   // Python Test
   // system("python3 ./python/py-db.py");
   // Python Test END
 
-
   // After the camera is open
-  if( cap.isOpened() ){
+  if (cap.isOpened())
+  {
     cout << "Face Detection Start..." << endl;
 
     // INIT
-    while( true ){
+    while (true)
+    {
       // Get frames from camera
       cap >> frame;
-      if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
-      imshow( "Init", frame );
+      if (frame.empty())
+      {
+        tool.ERROR_LOG("ERROR capture frame");
+      }
+      imshow("Init", frame);
 
       // Init
-      char pressKey = ( char )waitKey( 1 );
-      if( pressKey == 13 ){
+      char pressKey = (char)waitKey(1);
+      if (pressKey == 13)
+      {
         cout << "START INIT" << endl;
-        tool.DistanceInit( frame );
+        tool.DistanceInit(frame);
 
         // Confirm by pressing the "ENTER" key
-        if( pressKey == 13 ){
+        if (pressKey == 13)
+        {
           cout << "width: " << tool.obj_width << endl;
-          cout << "Height: "<< tool.obj_height << endl;
+          cout << "Height: " << tool.obj_height << endl;
           cout << "END INIT" << endl;
           break;
         }
       }
     }
-    destroyWindow( "Init" );
+    destroyWindow("Init");
 
     // start timeing
     tool.start = clock();
     // ANALYZE in real-time
-    while( true ){
+    while (true)
+    {
       // keep monitoring the usage duration
       tool.end = clock();
-      tool.duration = tool.timeElapsed( tool.start, tool.end );
+      tool.duration = tool.timeElapsed(tool.start, tool.end);
+      // ALERT when the duration is larger than the init duration
+      if (tool.duration >= tool.init_duration){
+        cout << "OUT OF DURATION || OUT OF DURATION || OUT OF DURATION || OUT OF DURATION" << endl;
+        // give user choices to choose what he or she would like to do next
+        tool.duration_choice();
+        break;
+      }
+
       // Get frames from camera
       cap >> frame;
-      if( frame.empty() ){ tool.ERROR_LOG( "ERROR capture frame" ); }
+      if (frame.empty())
+      {
+        tool.ERROR_LOG("ERROR capture frame");
+      }
 
       // Start the face detection function
-      tool.Detection( frame );
-      imshow( "Eyes Detection", frame );
+      tool.Detection(frame);
+      imshow("Eyes Detection", frame);
 
-      // If press ESC, q, or Q
-      // the system will calculate the elapsed time
-      // and the process will end
-      char ch = ( char )waitKey( 10 );
-      if( ch == 27 || ch =='q' || ch == 'Q' ){
+      // If press ESC/ q/ Q, the system will calculate the elapsed time, and the process will end
+      char ch = (char)waitKey(10);
+      if (ch == 27 || ch == 'q' || ch == 'Q')
+      {
         // calculate time
         tool.end = clock();
-        tool.duration = tool.timeElapsed( tool.start, tool.end );
+        tool.duration = tool.timeElapsed(tool.start, tool.end);
         tool.duration = 0;
         // end timing
-        break; 
+        break;
       }
     }
   }
-  else{ tool.ERROR_LOG( "ERROR open camera" ); }
-
+  else
+  {
+    tool.ERROR_LOG("ERROR open camera");
+  }
 
   // Record user's datas into JSON files
   struct user_data person1;
-  person1 = { 0, user_name, 60.7, 60.0, false };
+  person1 = {0, user_name, 60.7, 60.0, false};
   // person1 = { 0, user_name,  init_distance, measure_distance, analysis_result};
-  tool.recordData( person1 );
+  tool.recordData(person1);
 
   // String to char*
   string dir_str = "./datas/";
-  dir_str = dir_str.append( person1.name ) + "/";
+  dir_str = dir_str.append(person1.name) + "/";
   int count = dir_str.length();
-  char dir[count+1];
-  strcpy( dir, dir_str.c_str() );
+  char dir[count + 1];
+  strcpy(dir, dir_str.c_str());
 
   // Pass char to mk_dir() function to find if the specific dir exists
-  cout << "Existing or not: " << tool.mk_dir( dir ) << endl;
+  cout << "Existing or not: " << tool.mk_dir(dir) << endl;
 
   // Count directories
   // int exitStatus = 0;
@@ -136,4 +160,3 @@ int main( int argc, char *argv[] ){
   destroyAllWindows();
   return 0;
 }
-
