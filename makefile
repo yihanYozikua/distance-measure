@@ -12,6 +12,9 @@ LIBS = $(OPENCV)
 
 main:
 	g++ -std=c++11 $(LIBS) main.cpp tools.cpp backend.cpp dataProcessing.cpp -o main
+	# tools.cpp : basic functions for main.cpp running
+	# backend.cpp : backend calculation for this system
+	# dataProcessing.cpp : uplaoding data and processing
 
 clean:
 	rm -f *.o main
