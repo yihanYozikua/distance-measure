@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include "tools.h"
+#include "backend.h"
 
 // include Python
 #define PY_SSIZE_T_CLEAN
@@ -32,17 +33,18 @@ int main(int argc, char *argv[])
 
   // Create a new object
   Tools tool;
+  Backend backend;
 
   // Camera init
   VideoCapture cap = VideoCapture(0);
   Mat frame, img;
 
   // Load cascade classifiers
-  if (!tool.face_cascade.load(tool.face_cascade_name))
+  if (!backend.face_cascade.load(backend.face_cascade_name))
   {
     tool.ERROR_LOG("ERROR loading face cascade");
   }
-  if (!tool.eyes_cascade.load(tool.eyes_cascade_name))
+  if (!backend.eyes_cascade.load(backend.eyes_cascade_name))
   {
     tool.ERROR_LOG("ERROR loading eyes cascade");
   }
@@ -78,13 +80,13 @@ int main(int argc, char *argv[])
       if (pressKey == 13)
       {
         cout << "START INIT" << endl;
-        tool.DistanceInit(frame);
+        backend.DistanceInit(frame);
 
         // Confirm by pressing the "ENTER" key
         if (pressKey == 13)
         {
-          cout << "width: " << tool.obj_width << endl;
-          cout << "Height: " << tool.obj_height << endl;
+          cout << "width: " << backend.obj_width << endl;
+          cout << "Height: " << backend.obj_height << endl;
           cout << "END INIT" << endl;
           break;
         }
@@ -93,18 +95,18 @@ int main(int argc, char *argv[])
     destroyWindow("Init");
 
     // start timeing
-    tool.start = clock();
+    backend.start = clock();
     // ANALYZE in real-time
     while (true)
     {
       // keep monitoring the usage duration
-      tool.end = clock();
-      tool.duration = tool.timeElapsed(tool.start, tool.end);
+      backend.end = clock();
+      backend.duration = backend.timeElapsed(backend.start, backend.end);
       // ALERT when the duration is larger than the init duration
-      if (tool.duration >= tool.init_duration){
+      if (backend.duration >= backend.init_duration){
         cout << "OUT OF DURATION || OUT OF DURATION || OUT OF DURATION || OUT OF DURATION" << endl;
         // give user choices to choose what he or she would like to do next
-        tool.duration_choice();
+        backend.duration_choice();
         break;
       }
 
@@ -116,7 +118,7 @@ int main(int argc, char *argv[])
       }
 
       // Start the face detection function
-      tool.Detection(frame);
+      backend.Detection(frame);
       imshow("Eyes Detection", frame);
 
       // If press ESC/ q/ Q, the system will calculate the elapsed time, and the process will end
@@ -124,9 +126,9 @@ int main(int argc, char *argv[])
       if (ch == 27 || ch == 'q' || ch == 'Q')
       {
         // calculate time
-        tool.end = clock();
-        tool.duration = tool.timeElapsed(tool.start, tool.end);
-        tool.duration = 0;
+        backend.end = clock();
+        backend.duration = backend.timeElapsed(backend.start, backend.end);
+        backend.duration = 0;
         // end timing
         break;
       }

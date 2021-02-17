@@ -29,26 +29,10 @@ class Tools{
   public:
     void Video_Capture(); // to open camera and start the video stream
     void ERROR_LOG( char const *msg ); // to print error message
-    void DistanceInit( Mat frame );
-    bool CompareWithInit( Rect coordinate );
-    void Detection( Mat frame ); // 
     string time_capture();
     void recordData( user_data person );
     bool mk_dir( char *dir );
     String executeCommand( const String cmd, int& out_exitStatus );
-    double timeElapsed( clock_t start, clock_t end );
-    void duration_choice();
-
-    vector<Rect> faces, eyes;
-    String face_cascade_name = "Source/haarcascade_eye_tree_eyeglasses.xml";
-    String eyes_cascade_name = "Source/haarcascade_frontalface_default.xml";
-    CascadeClassifier face_cascade;
-    CascadeClassifier eyes_cascade;
-
-    int obj_width = 0, obj_height = 0;
-    clock_t start, end;
-    double init_duration = 15; // system default standard screen usage duration
-    double duration; // duration to be calculated
 };
 
 #endif /* TOOLS_h */

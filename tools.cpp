@@ -44,7 +44,6 @@ void Tools::Video_Capture(){
   if (!cap.isOpened()){
     cerr << "ERROR! Unable to open camera\n";
   }
-
   //============= GRAB AND LOOP =================
   cout << "Start grabbing" << endl
        << "Press any key to terminate;" << endl;
@@ -69,81 +68,7 @@ void Tools::ERROR_LOG( char const *msg ){
   exit( -1 );
 }
 
-void Tools::DistanceInit( Mat frame ){
-  // declare vector for faces and eyes
-  vector<Rect> faces, eyes;
-  Mat frame_gray, frame_resize;
-
-  // convert to gray scale
-  cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
-
-  // histogram equalization
-  equalizeHist( frame_gray, frame_gray );
-
-  // detect faces of different sizes using cascade classifier
-  face_cascade.detectMultiScale( frame_gray, faces, 1.1, 5, CV_HAL_BORDER_CONSTANT, Size(30, 30) );
-
-  // draw circles around the eyes
-  for( size_t i = 0; i < faces.size(); i++ ){
-    
-    // draw rectangular on eyes
-    rectangle( frame, faces[i], Scalar(255, 0, 0), 3, 8, 0 );
-    obj_width = faces[i].width;
-    obj_height = faces[i].height;
-  }
-}
-
-bool Tools::CompareWithInit( Rect coordinate ){
-  if( ( coordinate.width > obj_width + 10 ) && ( coordinate.height > obj_height + 10 ) ){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-
-void Tools::Detection( Mat frame ){
-  // declare vector for faces and eyes
-  // vector<Rect> faces, eyes;
-  Mat frame_gray, frame_resize;
-  int radius;
-
-  // convert to gray scale
-  cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
-
-  // histogram equalization
-  equalizeHist( frame_gray, frame_gray );
-
-  // detect faces of different sizes using cascade classifier
-  face_cascade.detectMultiScale( frame_gray, faces, 1.1, 5, CV_HAL_BORDER_CONSTANT, Size(30, 30) );
-
-  // draw circles around the faces
-  for( size_t i = 0; i < faces.size(); i++ ){
-    
-    // Point center;
-    
-    // draw rectangular on face
-    rectangle( frame, faces[i], Scalar(255, 0, 0), 3, 8, 0 );
-    if( CompareWithInit( faces[i] ) ){
-      cout << "ALERRRRRRRRRRRRT" << endl;
-    }
-    
-    // cout << "( " << faces[i].width << ", " << faces[i].height << " )  " << endl;
-  
-    // Mat faceROI = frame_gray( faces[i] );
-
-    // // detection of eyes in the input image
-    // eyes_cascade.detectMultiScale( faceROI, eyes, 1.1, 1, CV_HAL_BORDER_CONSTANT, Size(30, 30) );
-    // // draw circles around eyes
-    // for( size_t j = 0; j < eyes.size(); j++){
-    //   center.x = cvRound( ( faces[i].x + eyes[j].x + eyes[j].width*0.5 ) );
-    //   center.y = cvRound( ( faces[i].y + eyes[j].y + eyes[j].height*0.5 ) );
-    //   radius = cvRound( ( eyes[j].width + eyes[j].height )*0.25 );
-    //   circle( frame, center, radius, Scalar( 0, 255, 0 ), 3, 8, 0 );
-    // }
-  }
-}
-
+// Return current timestamp
 string Tools::time_capture(){
 
   // current date & time based on current system
@@ -162,10 +87,9 @@ string Tools::time_capture(){
   //      << "Time: " << 5 + ltm->tm_hour << ":"
   //      << 30 + ltm->tm_min << ":"
   //      << ltm->tm_sec << endl;
-
 }
 
-// Write into .json file
+// Write data into .json file
 void Tools::recordData( user_data person ){
 
   json data;
@@ -231,35 +155,4 @@ String executeCommand( const String cmd, int& out_exitStatus ){
     out_exitStatus = WEXITSTATUS(rc);
   }
   return result;
-}
-
-// Detect Screen Usage Time
-double Tools::timeElapsed( clock_t start, clock_t end ){
-  double duration;
-  duration = (double)(end - start) / CLOCKS_PER_SEC / 2.5;
-  cout << "Screen Usage: " << duration << " secs" << endl;
-  return duration;
-}
-
-void Tools::duration_choice(){
-  char duration_choice;
-  cout << "Press 'R' to Remind me later" << endl
-       << "or Press 'B' to have a break" << endl;
-
-  cin >> duration_choice;
-  // while( (duration_choice != 'R') || (duration_choice != 'B') ){
-  //   cout << "Please press 'R' or 'B'." << endl;
-  //   cin >> duration_choice;
-  // }
-
-  if(duration_choice == 'R'){
-    cout << "How long would you like to have a break?" << endl
-         << "This system takes 'minutes' for unit, please be awared when you key in the number. " << endl;
-    int break_time = 0;
-    cin >> break_time;
-    cout << "You will take " << break_time << " mins break" << endl;
-  }
-  else if(duration_choice == 'B'){ 
-    /* make the PC get into "sleep" status */ 
-  }
 }
