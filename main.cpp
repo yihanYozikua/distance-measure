@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
       // Init
       char pressKey = (char)waitKey(1);
-      if (pressKey == 13)
+      if (pressKey == 13) 
       {
         cout << "START INIT" << endl;
         backend.DistanceInit(frame);
