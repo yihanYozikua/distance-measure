@@ -99,7 +99,14 @@ int main(int argc, char *argv[])
     // ANALYZE in real-time
     while (true)
     {
-      // keep monitoring the usage duration
+      // Get frames from camera
+      cap >> frame;
+      if (frame.empty())
+      {
+        tool.ERROR_LOG("ERROR capture frame");
+      }
+
+      // Keep monitoring the usage duration
       backend.end = clock();
       backend.duration = backend.timeElapsed(backend.start, backend.end);
       // ALERT when the duration is larger than the init duration
@@ -110,14 +117,7 @@ int main(int argc, char *argv[])
         break;
       }
 
-      // Get frames from camera
-      cap >> frame;
-      if (frame.empty())
-      {
-        tool.ERROR_LOG("ERROR capture frame");
-      }
-
-      // Start the face detection function
+      // Start the eyes detection function
       backend.Detection(frame);
       imshow("Eyes Detection", frame);
 

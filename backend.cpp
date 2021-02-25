@@ -78,9 +78,8 @@ void Backend::Detection( Mat frame ){
   // detect faces of different sizes using cascade classifier
   face_cascade.detectMultiScale( frame_gray, faces, 1.1, 5, CV_HAL_BORDER_CONSTANT, Size(30, 30) );
 
-  // draw circles around the faces
+  // draw rectangular on eyes
   for( size_t i = 0; i < faces.size(); i++ ){
-    // draw rectangular on face
     rectangle( frame, faces[i], Scalar(255, 0, 0), 3, 8, 0 );
     if( CompareWithInit( faces[i] ) ){
       cout << "ALERRRRRRRRRRRRT" << endl;
