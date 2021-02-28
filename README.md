@@ -3,11 +3,7 @@
 This application will measure the distance between the screen and user.
 In this version, I provide a terminal-style alert.
 
-<!-- blank line -->
-<figure class="video_container">
-  <iframe src="https://youtu.be/wCYsLGKFppw" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
-<!-- blank line -->
+![](https://youtu.be/wCYsLGKFppw)
 
 ## Each files & directories
 #### /Source/
