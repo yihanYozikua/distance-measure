@@ -1,0 +1,25 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+}
+
+.userBtn{
+  width: 40vw;
+  height: 10vh;
+  border: 0px;
+  margin-bottom: 2vh;
+}
+.userBtn:hover{
+  color: white;
+  background-color: gray;
+}
+
+.addUserBtn{
+  width: 40vw;
+  height: 5vh;
+  color: gray;
+}

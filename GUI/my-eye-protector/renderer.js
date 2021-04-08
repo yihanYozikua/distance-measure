@@ -6,6 +6,12 @@ myNotification.onclick = () => {
   console.log('Notification clicked')
 }
 
+////////// Load user page
+const add = document.querySelector("#userPage")
+const ipc = require('electron').ipcRenderer
+add.onclick = () =>{
+  ipc.send('add');
+}
 
 ////////// Online / Offline Event Detection
 // const alertOnlineStatus = () => { window.alert(navigator.onLine ? 'online' : 'offline') }

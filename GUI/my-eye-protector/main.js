@@ -1,5 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const url = require('url');
+const ipc = require('electron').ipcMain;
+let newwin;
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -10,7 +13,7 @@ function createWindow () {
     }
   })
 
-  win.loadFile('index.html');
+  win.loadFile('html/index.html');
 }
 
 app.whenReady().then(() => {
@@ -28,6 +31,19 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+////////// Open new page
+ipc.on('add', ()=>{
+  newwin = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    parent: win, // win is the main window
+  })
+  newwin.loadURL( path.join('file:',__dirname,'html/userAccount.html') );
+  newwin.on('close', ()=>{newwin = null})
+})
+
 
 ////////// Custom the Dock Menu
 const { Menu } = require('electron')
@@ -48,6 +64,8 @@ const dockMenu = Menu.buildFromTemplate([
 app.whenReady().then(() => {
   app.dock.setMenu(dockMenu);
 })
+
+
 
 
 ////////// Online / Offline Event Detection
