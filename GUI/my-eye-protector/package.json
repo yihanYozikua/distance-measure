@@ -1,0 +1,16 @@
+{
+  "name": "my-eye-protector",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start":"electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "yihanHsiao",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^12.0.2"
+  }
+}
